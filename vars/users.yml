@@ -1,0 +1,19 @@
+---
+vars:
+  employee:
+  -
+   user: yonis
+   name: Yoni S
+   mail: yoni.s@changeMe.com
+   machine: dev100
+  -
+   user: dd
+   name: Dan D
+   mail: dan.d@changeMe.com
+   machine: dev101
+  - 
+   user: r
+   name: Rami N
+   mail: rami.n@changeMe.comm
+   machine: dev102
+...

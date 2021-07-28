@@ -1,0 +1,28 @@
+---
+devservers:
+  hosts:
+    dev100:
+      name: Yoni
+      mail: yoni.s@changeME.com
+      user: yonis
+    dev101:
+      name: D
+      mail: d.d@changeME.com
+      user: dd
+    dev102:
+      name: R
+      mail: r.n@changeME.com
+      user: ramin
+    dev103:
+      name: Yakov
+      mail: yakov@changeME.com
+      user: yakovs    
+    dev104:
+      name: Moshe
+      mail: moshe.t@changeME.com
+      user: moshet    
+    dev105:
+      name: Igor
+      mail: igor.t@changeME.com
+      user: igort
+...

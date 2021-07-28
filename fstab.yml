@@ -1,0 +1,70 @@
+---
+- hosts: all
+  tasks:
+
+  - name: Mount an NFS volume home
+    ansible.posix.mount:
+      src: unas1:/vol/home
+      path: /home
+      opts: nfsvers=3,soft,intr,rsize=32768,wsize=32768,timeo=600
+      state: mounted
+      fstype: nfs
+      backup: yes
+  - name: Mount an NFS volume public
+    ansible.posix.mount:
+      src: nas2:/public
+      path: /auto/public
+      opts: nfsvers=3,soft,intr,rsize=32768,wsize=32768,timeo=600
+      state: mounted
+      fstype: nfs
+      backup: yes
+  - name: Mount an NFS volume git
+    ansible.posix.mount:
+      src: nas2:/dev/git/
+      path: /auto/git/
+      opts: nfsvers=3,soft,intr,rsize=32768,wsize=32768,timeo=600
+      state: mounted
+      fstype: nfs
+      backup: yes
+  - name: Mount an NFS volume exaware
+    ansible.posix.mount:
+      src: nas2:/dev/comp/
+      path: /auto/exaware/
+      opts: nfsvers=3,soft,intr,rsize=32768,wsize=32768,timeo=600
+      state: mounted
+      fstype: nfs
+      backup: yes
+  - name: Mount an NFS volume aut (automation)
+    ansible.posix.mount:
+      src: nas1:/aut/automation/
+      path: /auto/automation/
+      opts: nfsvers=3,soft,intr,rsize=32768,wsize=32768,timeo=600
+      state: mounted
+      fstype: nfs
+      backup: yes
+  - name: Mount an NFS volume software
+    ansible.posix.mount:
+      src: nas2:/dev/software/
+      path: /auto/software/
+      opts: nfsvers=3,soft,intr,rsize=32768,wsize=32768,timeo=600
+      state: mounted
+      fstype: nfs
+      backup: yes
+  - name: Mount an NFS volume workspace
+    ansible.posix.mount:
+      src: nas2:/dev/workspace/
+      path: /auto/wspace/
+      opts: nfsvers=3,soft,intr,rsize=32768,wsize=32768,timeo=600
+      state: mounted
+      fstype: nfs
+      backup: yes
+  - name: Mount an NFS volume dt_bug_info
+    ansible.posix.mount:
+      src: unas1:/sup/dt_bug/
+      path: /dt_bug/
+      opts: nfsvers=3,soft,intr,rsize=32768,wsize=32768,timeo=600
+      state: mounted
+      fstype: nfs
+      backup: yes
+
+...

@@ -1,0 +1,34 @@
+[devall]
+dev1[00:21]
+dev-sft1
+
+[devinfra]
+dev1[01:06]
+dev-infra
+
+[devstage]
+dev100
+dev101
+dev1[01:07]
+dev118
+dev119
+dev121
+
+[qaall]
+exa-qa0[1:4]
+
+[qalocal]
+exa-qa03
+exa-qa04
+
+[autall]
+sate
+sate-stage1
+elk1
+comp-guard
+
+[localall]
+dev100 ansible_host=172.130.16.100
+localhost ansible_connection=local
+localhost1 ansible_host=172.16.x.y
+localhost2 ansible_host=1.1.1.1

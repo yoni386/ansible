@@ -1,0 +1,8 @@
+---
+- hosts: all
+  vars:
+     contents: "{{ lookup('file', '/etc/fstab') }}"
+
+  tasks:
+     - debug: msg="the value of f/etc/fstab is {{ contents }}"
+

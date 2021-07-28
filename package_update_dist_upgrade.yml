@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: Update all packages to the latest version preforms `apt-get dist-upgrade`
+      become: true
+      become_user: root
+      apt:
+        upgrade: dist
+        autoremove: yes
+        autoclean: yes

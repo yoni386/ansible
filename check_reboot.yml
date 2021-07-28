@@ -1,0 +1,59 @@
+---
+- name: update dev servers
+  hosts: all
+  # include: vars/machines.yml
+  #   include_vars:
+  #     file: vars/machines.yml
+  #     name: machines
+    # localhost:
+      # vars:
+        # ansible_connection: local
+
+    # become: true
+    # become_user: root
+  tasks:
+    - name: Run the equivalent of apt-get update before the operation
+      apt:
+        update_cache: yes
+    - name: Update all packages to their latest version
+      apt:
+        name: "*"
+        state: latest
+      tags: update
+    - name: Upgrade the OS (apt-get dist-upgrade)
+      apt:
+        upgrade: dist
+      tags: upgrade
+
+    - name: Include vars of users.yml into the 'users' variable
+      include_vars:
+        file: vars/machines.yml
+        name: machines
+
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      stat: path=/var/run/reboot-required get_md5=no
+
+    - name: Checking if reboot_required_file flag exists (if reboot required)
+      notify:
+        msg: "Notify is needed due to kernel or security updates"
+      debug:
+        msg: "{{ machines.devservers.hosts[inventory_hostname] }}"
+      when: reboot_required_file.stat.exists
+
+    - name: Notify owner if kerenl or security were updated (reboot is required)
+      community.general.mail:
+        host: 192.168.222.70
+        port: 25
+        to: "{{ machines.devservers.hosts[inventory_hostname].mail }}"
+        from: updater@changeMe.com (ansible update)
+        subject: Ansible-updater reboot is required to ensure that your system benefits from those updates
+        body: Hello {{ machines.devservers.hosts[inventory_hostname].name }}, <br> <br />
+          Kernel or security was updated (reboot is required). <br />
+          Please reboot your dev machine {{ ansible_hostname }}.  <br />  <br />
+          Reminder; Reboot can be done by `sudo reboot` via terminal.
+        timeout: 10
+        subtype: html
+      delegate_to: localhost
+      when: reboot_required_file.stat.exists
+...

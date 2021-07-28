@@ -1,0 +1,22 @@
+---
+
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+    - name: Include vars of users.yml into the 'users' variable
+      include_vars:
+        file: vars/users.yml
+        name: users
+    - name: Check if a reboot is needed on all servers
+      register: reboot_required_file
+      stat: path=/var/run/reboot-required get_md5=no
+
+    - name: Notify owner if kerenl or security were updated (reboot is required)
+      notify:
+        msg: "Notify is needed due to kernel updates"
+      debug:
+        msg: "User {{ item.key }} is {{ item.value }} ({{ item.value.mail }})"
+      loop: "{{ lookup('dict', users) }}"
+      when: reboot_required_file.stat.exists
+...

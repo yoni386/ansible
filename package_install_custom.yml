@@ -1,0 +1,10 @@
+---
+- hosts: all
+  tasks:
+    - name: install custom package {{ package_name }}
+      become: true
+      become_user: root
+      yum:
+        state: present
+        name:
+         - "{{ package_name }}"
